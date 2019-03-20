@@ -2,7 +2,7 @@
 
 ![tested on ESP-WROOM-32](https://img.shields.io/badge/tested--on-ESP--WROM--32-brightgreen.svg)
 
-EQ-3 radiator valves work really well for a home-automation heating system. They are fully configurable vie BLE as well as their front-panel. There are more options available than the calorBT app makes available.
+EQ-3 radiator valves work really well for a home-automation heating system. They are fully configurable vie BLE as well as their front-panel. There are more options available than the calorBT app provides.
 
 The main problem with centrally controlling them is the limited range of BLE. This makes it impossible to use a single central-controller to talk to all TRVs in a typical house. Therefore multiple 'hubs' are required at distributed locations.
 
@@ -55,14 +55,14 @@ A scan can be initiated at any time by publishing to the `/<mqttid>radin/scan` t
 Scan results are published to `/<mqttid>radout/devlist` in json format.
 
 Control of valves is carried out by publishing to the `/<mqttid>radin/trv` topic with a payload consisting of:
-  `ab:cd:ef:gh:ij:kl <command> [parm]`
+  `ab:cd:ef:gh:ij:kl <command> [param]`
 where the device is indicated by its bluetooth address (MAC)
 
 ### Supported commands
 
 | Parameter | Description | Paramters | Exampels | Stable since |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| settime | sets the current time on the valve | settime has an additional parameter of the hexadecimal encoded current time.<br>parm is 12 characters hexadecimal yymmddhhMMss (e.g. 13010c0c0a00 is 2019/Jan/12 12:00.00) | *`/<mqttid>radin/trv <eq-3-address> settemp 13010c0c0a00`*<br><br>`/livingroomradin/trv ab:cd:ef:gh:ij:kl settemp 13010c0c0a00` | v1.20 |
+| settime | sets the current time on the valve | settime has an additional parameter of the hexadecimal encoded current time.<br>param is 12 characters hexadecimal yymmddhhMMss (e.g. 13010c0c0a00 is 2019/Jan/12 12:00.00) | *`/<mqttid>radin/trv <eq-3-address> settime 13010c0c0a00`*<br><br>`/livingroomradin/trv ab:cd:ef:gh:ij:kl settime 13010c0c0a00` | v1.20 |
 | boost | sets the boost mode | -none - | *`/<mqttid>radin/trv <eq-3-address> boost`*<br><br>`/livingroomradin/trv ab:cd:ef:gh:ij:kl boost` | v1.20 |
 | unboost | reset to unboost mode | -none - | *`/<mqttid>radin/trv <eq-3-address> unboost`*<br><br>`/livingroomradin/trv ab:cd:ef:gh:ij:kl unboost` | v1.20 |
 | lock | locks the front-panel controls | -none - | *`/<mqttid>radin/trv <eq-3-address> lock`*<br><br>`/livingroomradin/trv ab:cd:ef:gh:ij:kl lock` | v1.20 |
@@ -101,10 +101,10 @@ It is probably not advisable to poll the valve with the unboost command.
 
 | Key | Description | published | subscriped |
 | ------------- |  ------------- |  :-------------: |  :-------------: |
-| `/<mqttid>radout/devlist` | list of avalibile bluetooth devices | X | |
+| `/<mqttid>radout/devlist` | list of available bluetooth devices | X | |
 | `/<mqttid>radout/status ` | show a status message each time a trv is contacted | X | |
 | `/<mqttid>radin/trv <command> [param]` | sends a command to the trv | | X |
-| `/<mqttid>radin/scan` | scan for avalibile bluetooth devices | | X |
+| `/<mqttid>radin/scan` | scan for available bluetooth devices | | X |
 
 ## Usage Summary
 
